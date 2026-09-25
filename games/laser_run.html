@@ -45,12 +45,18 @@ button:active{transform:scale(.96)}
     gap:6px;
   }
   .player-controls .label{width:100%;font-size:13px}
-  .controls button,.player-controls button{
-    width:100%;
+  .player-controls button{
+    width:48%;
     min-height:54px;
-    padding:8px 4px;
+    padding:8px 2px;
     font-size:15px;
   }
+  .player-controls{
+    flex-direction:row;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+  .player-controls .label{width:100%}
 
   #resetBtn{top:6px;right:6px;font-size:13px;padding:6px 9px}
   .player{bottom:45px}
