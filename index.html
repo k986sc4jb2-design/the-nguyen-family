@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tristan & Zoe's Game Arcade</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #6c5ce7, #00b894 55%, #0984e3);
+      color: white;
+    }
+    .hero {
+      text-align: center;
+      padding: 70px 20px 35px;
+    }
+    .hero .emoji {
+      font-size: 72px;
+      margin-bottom: 10px;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(42px, 8vw, 76px);
+      line-height: 1;
+      text-shadow: 0 5px 0 rgba(0,0,0,.12);
+    }
+    .subtitle {
+      margin: 18px auto 0;
+      font-size: clamp(18px, 3vw, 25px);
+      max-width: 700px;
+      line-height: 1.5;
+    }
+    .made {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 9px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.18);
+      font-weight: bold;
+    }
+    .arcade {
+      width: min(1050px, 92%);
+      margin: 25px auto 70px;
+      padding: 28px;
+      background: rgba(255,255,255,.94);
+      color: #222;
+      border-radius: 28px;
+      box-shadow: 0 20px 55px rgba(0,0,0,.22);
+    }
+    .arcade h2 {
+      text-align: center;
+      font-size: 32px;
+      margin: 5px 0 25px;
+    }
+    .games {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
+    }
+    .game {
+      display: block;
+      text-decoration: none;
+      color: #222;
+      padding: 22px;
+      border-radius: 20px;
+      background: #f3f5ff;
+      border: 3px solid transparent;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .game:hover {
+      transform: translateY(-5px) scale(1.01);
+      box-shadow: 0 12px 25px rgba(0,0,0,.13);
+      border-color: #6c5ce7;
+    }
+    .game-icon { font-size: 48px; }
+    .game h3 { margin: 10px 0 7px; font-size: 23px; }
+    .game p { margin: 0; color: #666; line-height: 1.4; }
+    .coming {
+      opacity: .7;
+      cursor: default;
+    }
+    .coming:hover {
+      transform: none;
+      box-shadow: none;
+      border-color: transparent;
+    }
+    footer {
+      text-align: center;
+      padding: 0 20px 35px;
+      font-size: 15px;
+      opacity: .9;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="emoji">🎮</div>
+    <h1>Tristan &amp; Zoe's<br>Game Arcade</h1>
+    <p class="subtitle">
+      Welcome to our family-made arcade!<br>
+      Every game is created, designed, and tested by Tristan &amp; Zoe.
+    </p>
+    <div class="made">✨ Imagine • Create • Play • Improve ✨</div>
+  </header>
+
+  <main class="arcade">
+    <h2>🕹️ Choose a Game</h2>
+
+    <div class="games">
+      <a class="game" href="games/lucky_block_survival.html">
+        <div class="game-icon">🧱</div>
+        <h3>Lucky Block Survival</h3>
+        <p>Break lucky blocks, survive the surprises, and see how long you can last!</p>
+      </a>
+
+      <div class="game coming">
+        <div class="game-icon">🐶</div>
+        <h3>Puppy Stacker</h3>
+        <p>Coming soon!</p>
+      </div>
+
+      <div class="game coming">
+        <div class="game-icon">🐾</div>
+        <h3>Magical Pet Rescue</h3>
+        <p>Coming soon!</p>
+      </div>
+
+      <div class="game coming">
+        <div class="game-icon">🚀</div>
+        <h3>Rocket Meteor</h3>
+        <p>Coming soon!</p>
+      </div>
+
+      <div class="game coming">
+        <div class="game-icon">⚡</div>
+        <h3>Laser Run</h3>
+        <p>Coming soon!</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    Made with imagination by Tristan &amp; Zoe 🎮❤️
+  </footer>
+
+</body>
+</html>
