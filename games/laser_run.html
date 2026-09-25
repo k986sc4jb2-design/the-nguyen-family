@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tristan Laser Run</title>
+<style>
+body{margin:0;background:#dff3ff;font-family:Arial,sans-serif;text-align:center;color:#20252b}
+h1{margin:12px 0 5px}.info{font-weight:800;margin-bottom:8px}
+#game{position:relative;width:min(720px,94vw);height:560px;margin:auto;overflow:hidden;border:5px solid #222;border-radius:18px;background:#9bd17c}
+#resetBtn{position:absolute;top:10px;right:10px;z-index:30;font-size:14px;padding:7px 12px;border-radius:9px}#road{position:absolute;left:10%;right:10%;top:0;bottom:0;background:#d7d7d7}
+.line{position:absolute;top:0;bottom:0;width:5px;background:#aaa}.l1{left:30%}.l2{left:50%}.l3{left:70%}
+.laser{position:absolute;height:16px;background:#e22;border:3px solid #900;border-radius:10px;box-shadow:0 0 14px #f33}
+.item{position:absolute;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:31px;border:3px solid #222;background:white;z-index:5}
+.player{position:absolute;bottom:55px;width:50px;height:65px;transform:translateX(-50%);transition:left .15s;z-index:6}.player2{display:none;bottom:55px}.player2 .body{background:#f28c28}
+.head{width:28px;height:28px;margin:auto;background:#ffd0a0;border:3px solid #222;border-radius:50%}
+.body{width:26px;height:30px;margin:auto;background:#4285f4;border:3px solid #222;border-radius:7px}
+.leg{position:absolute;bottom:0;width:9px;height:20px;background:#222;border-radius:5px}.leg1{left:8px}.leg2{right:8px}
+#message{position:absolute;inset:0;background:#0008;display:flex;align-items:center;justify-content:center;z-index:20}
+.card{background:#fff;padding:25px;border-radius:20px;width:280px}
+button{font-size:20px;font-weight:bold;padding:12px 20px;border:0;border-radius:12px;background:#4285f4;color:#fff;cursor:pointer}
+.controls{margin:10px}.controls button{margin:0 6px;width:105px}
+</style>
+</head>
+<body>
+<h1>Tristan Laser Run</h1>
+<div class="info">❤️ <span id="lives">3</span> &nbsp; ⭐ Score: <span id="score">0</span> / 1000 &nbsp; <span id="effect">Normal</span></div>
+<div id="game">
+<div id="road"></div><div class="line l1"></div><div class="line l2"></div><div class="line l3"></div>
+<div id="lasers"></div><div id="items"></div>
+<div class="player" id="player"><div class="head"></div><div class="body"></div><div class="leg leg1"></div><div class="leg leg2"></div></div><div class="player player2" id="player2"><div class="head"></div><div class="body"></div><div class="leg leg1"></div><div class="leg leg2"></div></div>
+<div id="message"><div class="card"><h2>🏁 Laser Run!</h2>
+<p>4 equal lanes. Two players from the start.<br>👤 Player 1 = A / D &nbsp; • &nbsp; 👤 Player 2 = ← →<br>🚫 Players cannot be in the same column.<br>🐌 slows everything down.<br><br><br><b>Shift = Pause / Resume</b></p>
+<button id="start">START</button></div></div>
+</div><button id="resetBtn">RESET</button>
+<div class="controls"><button id="left">◀ LEFT</button><button id="right">RIGHT ▶</button></div>
+<p>4 equal lanes • Players cannot be in the same column • Player 1 = A / D • Player 2 = ← → &nbsp; • &nbsp; Shift = Pause</p>
+
+<script>
+(function(){
+const game=document.getElementById("game");
+const player=document.getElementById("player");
+const player2=document.getElementById("player2");
+const l3=document.querySelector(".l3");
+const lasers=document.getElementById("lasers");
+const itemsBox=document.getElementById("items");
+const scoreEl=document.getElementById("score");
+const livesEl=document.getElementById("lives");
+const effectEl=document.getElementById("effect");
+const message=document.getElementById("message");
+const start=document.getElementById("start");
+const leftBtn=document.getElementById("left");
+const rightBtn=document.getElementById("right");
+const resetBtn=document.getElementById("resetBtn");
+
+let lane=0,lane2=1,lives=3,running=false,paused=false,last=0,spawn=0,itemSpawn=0,dual=true;
+let time=0,score=0,items=[],laserRows=[],raf=0,effect="normal",effectTime=0;
+const X3=[23.33,50,76.67];
+const X4=[20,40,60,80];
+let X=X4;
+
+function setLane(){player.style.left=X[lane]+"%"; player2.style.left=X[lane2]+"%";}
+function activateSecondLane(){ dual=true; X=X4; l3.style.display="block"; document.querySelector(".l1").style.left="30%"; document.querySelector(".l2").style.left="50%"; l3.style.left="70%"; player2.style.display="block"; setLane(); }
+
+function reset(){
+ cancelAnimationFrame(raf);
+ lasers.innerHTML="";
+ itemsBox.innerHTML="";
+ laserRows=[];
+ items=[];
+ lane=0;lane2=1;lives=3;dual=true;X=X4;paused=false;last=0;spawn=0;itemSpawn=0;time=0;score=0;
+ effect="normal";effectTime=0;
+ livesEl.textContent="3";scoreEl.textContent="0";effectEl.textContent="Normal";
+ setLane();
+}
+
+function makeLaser(){
+ const count=Math.random()<0.55?1:2;
+ const lanes=[0,1,2,3].sort(function(){return Math.random()-0.5;}).slice(0,count);
+ const group=document.createElement("div");
+ group.style.position="absolute";
+ group.style.left="10%";
+ group.style.right="10%";
+ group.style.top="-25px";
+ group.style.height="30px";
+ lanes.forEach(function(l){
+   const beam=document.createElement("div");
+   beam.className="laser";
+   beam.style.left=(l*(dual?25:33.333))+"%";
+   beam.style.width=(dual?"25%":"33.333%");
+   group.appendChild(beam);
+ });
+ lasers.appendChild(group);
+ laserRows.push({el:group,lanes:lanes,y:-25});
+}
+
+function makeItem(){
+ const el=document.createElement("div");
+ const slow=true;
+ const l=Math.floor(Math.random()*(dual?4:3));
+ el.className="item";
+ el.textContent="🐌";
+ el.style.left=(X[l]-4)+"%";
+ el.style.top="-70px";
+ itemsBox.appendChild(el);
+ items.push({el:el,lane:l,y:-70,type:"slow"});
+}
+
+function end(win){
+ running=false;
+ paused=false;
+ cancelAnimationFrame(raf);
+ message.style.display="flex";
+ message.querySelector("h2").textContent=win?"🎉 YOU WIN!":"💥 GAME OVER!";
+ message.querySelector("p").innerHTML=win?
+   "You reached <b>1,000 points!</b>":
+   "You used all 3 lives!";
+ start.textContent="PLAY AGAIN";
+}
+
+function begin(){
+ reset();
+ message.style.display="none";
+ running=true;
+ raf=requestAnimationFrame(tick);
+}
+
+function togglePause(){
+ if(!running)return;
+ paused=!paused;
+ last=performance.now();
+ effectEl.textContent=paused?"⏸ PAUSED":
+   (effect==="slow"?"🐌 SLOW":"Normal");
+ if(!paused) raf=requestAnimationFrame(tick);
+}
+
+function move(d,which){
+ if(!running || paused)return;
+ if(which===2){
+   if(!dual)return;
+   const next=Math.max(0,Math.min(3,lane2+d));
+   if(next===lane)return;
+   lane2=next;
+ }else{
+   const max=dual?3:2;
+   const next=Math.max(0,Math.min(max,lane+d));
+   if(dual && next===lane2)return;
+   lane=next;
+ }
+ setLane();
+}
+
+function tick(t){
+ if(!running || paused)return;
+ if(!last)last=t;
+ const dt=Math.min(0.04,(t-last)/1000);
+ last=t;
+ time+=dt;spawn+=dt;itemSpawn+=dt;
+
+ score=Math.min(1000,Math.floor(time*20));
+ scoreEl.textContent=score;
+ activateSecondLane();
+
+ // Wide spacing through 500 points, then progressively tighter to 1000.
+ const progress=Math.max(0,Math.min((score-500)/500,1));
+ const gap=2-(0.95*progress);
+ if(spawn>gap){spawn=0;makeLaser();}
+ if(itemSpawn>4){itemSpawn=0;makeItem();}
+
+ const mult=effect==="slow"?0.55:3;
+
+ for(const o of laserRows){
+   o.y+=150*dt*mult;
+   o.el.style.top=o.y+"px";
+   const hitP1=o.lanes.includes(lane) && o.y>game.clientHeight-145 && o.y<game.clientHeight-70;
+   const hitP2=dual && o.lanes.includes(lane2) && o.y>game.clientHeight-145 && o.y<game.clientHeight-70;
+   if(hitP1 || hitP2){
+     lives--;
+     livesEl.textContent=lives;
+     o.y=9999;
+     o.el.remove();
+     if(lives<=0){end(false);return;}
+   }
+ }
+ laserRows=laserRows.filter(function(o){return o.el.isConnected;});
+
+ for(const o of items){
+   o.y+=125*dt*mult;
+   o.el.style.top=o.y+"px";
+   const gotP1=o.lane===lane && o.y>game.clientHeight-145 && o.y<game.clientHeight-65;
+   const gotP2=dual && o.lane===lane2 && o.y>game.clientHeight-145 && o.y<game.clientHeight-65;
+   if(gotP1 || gotP2){
+     effect=o.type;
+     effectTime=3;
+     o.el.remove();
+   }
+ }
+ items=items.filter(function(o){return o.el.isConnected;});
+
+ if(effectTime>0){
+   effectTime-=dt;
+   effectEl.textContent="🐌 SLOW "+Math.ceil(effectTime)+"s";
+   if(effectTime<=0)effect="normal";
+ }else if(!paused){
+   effectEl.textContent="Normal";
+ }
+
+ if(score>=1000){
+   score=1000;
+   scoreEl.textContent="1000";
+   end(true);
+   return;
+ }
+ raf=requestAnimationFrame(tick);
+}
+
+start.addEventListener("click",begin);
+resetBtn.addEventListener("click",function(){ reset(); message.style.display="flex"; message.querySelector("h2").textContent="🎮 READY!"; message.querySelector("p").innerHTML="Press <b>START</b> to play."; start.textContent="START"; });
+leftBtn.addEventListener("click",function(){move(-1,1);});
+rightBtn.addEventListener("click",function(){move(1,1);});
+
+document.addEventListener("keydown",function(e){
+ if(e.key==="Shift"){
+   e.preventDefault();
+   togglePause();
+   return;
+ }
+ if(e.key.toLowerCase()==="a"){
+   e.preventDefault(); move(-1,1);
+ }
+ if(e.key.toLowerCase()==="d"){
+   e.preventDefault(); move(1,1);
+ }
+ if(e.key==="ArrowLeft"){
+   e.preventDefault(); move(-1,2);
+ }
+ if(e.key==="ArrowRight"){
+   e.preventDefault(); move(1,2);
+ }
+ if(e.key===" " && !running){
+   e.preventDefault(); begin();
+ }
+});
+
+setLane();
+})();
+</script>
+</body>
+</html>
