@@ -34,7 +34,24 @@ button:active{transform:scale(.96)}
   #game{width:96vw;height:62vh;min-height:380px}
   .card{padding:18px}
   .card p{font-size:14px;line-height:1.45}
-  .controls button,.player-controls button{width:90px;min-height:58px;padding:10px;font-size:17px}
+
+  /* Put Player 1 and Player 2 controls side-by-side on phones/tablets */
+  .player-controls{
+    display:inline-flex;
+    vertical-align:top;
+    width:47%;
+    margin:8px 1% 8px;
+    flex-direction:column;
+    gap:6px;
+  }
+  .player-controls .label{width:100%;font-size:13px}
+  .controls button,.player-controls button{
+    width:100%;
+    min-height:54px;
+    padding:8px 4px;
+    font-size:15px;
+  }
+
   #resetBtn{top:6px;right:6px;font-size:13px;padding:6px 9px}
   .player{bottom:45px}
 }
