@@ -8,7 +8,7 @@
 body{margin:0;background:#dff3ff;font-family:Arial,sans-serif;text-align:center;color:#20252b}
 h1{margin:12px 0 5px}.info{font-weight:800;margin-bottom:8px}
 #game{position:relative;width:min(720px,94vw);height:min(560px,62vh);min-height:390px;margin:auto;overflow:hidden;border:5px solid #222;border-radius:18px;background:#9bd17c}
-#gameControls{display:flex;justify-content:flex-end;gap:10px;width:min(720px,94vw);margin:0 auto 8px;box-sizing:border-box}#pauseBtn,#resetBtn{display:inline-block!important;position:static!important;z-index:auto!important;font-size:16px;font-weight:bold;padding:10px 14px;border:3px solid #222;border-radius:10px;color:#fff}#pauseBtn{background:#6c5ce7}#resetBtn{background:#4285f4}#road{position:absolute;left:10%;right:10%;top:0;bottom:0;background:#d7d7d7}
+#gameControls{position:absolute;top:8px;right:8px;z-index:10000;display:flex!important;gap:8px;pointer-events:auto}#pauseBtn,#resetBtn{display:inline-block!important;visibility:visible!important;opacity:1!important;position:static!important;font-size:14px;font-weight:bold;padding:9px 11px;border:3px solid #222;border-radius:10px;color:#fff;pointer-events:auto}#pauseBtn{background:#6c5ce7}#resetBtn{background:#4285f4}#road{position:absolute;left:10%;right:10%;top:0;bottom:0;background:#d7d7d7}
 .line{position:absolute;top:0;bottom:0;width:5px;background:#aaa}.l1{left:30%}.l2{left:50%}.l3{left:70%}
 .laser{position:absolute;height:16px;background:#e22;border:3px solid #900;border-radius:10px;box-shadow:0 0 14px #f33}
 .item{position:absolute;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:31px;border:3px solid #222;background:white;z-index:5}
@@ -38,13 +38,13 @@ button{font-size:20px;font-weight:bold;padding:12px 20px;border:0;border-radius:
  .modeScreen p{font-size:10px!important;line-height:1.1!important;margin:2px 0 5px!important}
  .modeScreen h2{font-size:18px!important;margin:2px!important}
 }
-#message{z-index:100!important}#message .card{position:relative!important;width:min(360px,90vw)!important;max-height:94%!important;overflow-y:auto!important;padding:12px!important}#modeScreen,#playerScreen{position:static!important}#modeScreen .modeBtns{display:flex!important;flex-direction:column!important;gap:8px!important}#modeScreen .modeBtns>*{position:static!important;float:none!important;transform:none!important;flex:none!important}#modeScreen button{min-height:42px!important}#modeScreen .heartPicker{display:grid!important;grid-template-columns:52px minmax(70px,1fr) 52px!important;width:100%!important;gap:8px!important}#modeScreen #backPlayers{margin:0!important}</style>
+#message{z-index:100!important;padding-top:62px!important}#message .card{position:relative!important;width:min(360px,90vw)!important;max-height:94%!important;overflow-y:auto!important;padding:12px!important}#modeScreen,#playerScreen{position:static!important}#modeScreen .modeBtns{display:flex!important;flex-direction:column!important;gap:8px!important}#modeScreen .modeBtns>*{position:static!important;float:none!important;transform:none!important;flex:none!important}#modeScreen button{min-height:42px!important}#modeScreen .heartPicker{display:grid!important;grid-template-columns:52px minmax(70px,1fr) 52px!important;width:100%!important;gap:8px!important}#modeScreen #backPlayers{margin:0!important}</style>
 </head>
 <body>
 <h1>Tristan Laser Run</h1>
 <div class="info">❤️ <span id="lives">3</span> &nbsp; ⭐ Score: <span id="score">0</span> &nbsp; <span id="effect">Normal</span></div>
-<div id="gameControls"><button id="pauseBtn">⏸ PAUSE</button><button id="resetBtn">🔄 RESET</button></div>
 <div id="game" tabindex="0">
+<div id="gameControls"><button id="pauseBtn">⏸ PAUSE</button><button id="resetBtn">🔄 RESET</button></div>
 <div id="road"></div><div class="line l1"></div><div class="line l2"></div><div class="line l3"></div>
 <div id="lasers"></div><div id="items"></div>
 <div class="player" id="player"><div class="head"></div><div class="body"></div><div class="leg leg1"></div><div class="leg leg2"></div></div><div class="player player2" id="player2"><div class="head"></div><div class="body"></div><div class="leg leg1"></div><div class="leg leg2"></div></div>
