@@ -7,7 +7,7 @@
 <style>
 body{margin:0;background:#dff3ff;font-family:Arial,sans-serif;text-align:center;color:#20252b}
 h1{margin:12px 0 5px}.info{font-weight:800;margin-bottom:8px}
-#game{position:relative;width:min(720px,94vw);height:560px;margin:auto;overflow:hidden;border:5px solid #222;border-radius:18px;background:#9bd17c}
+#game{position:relative;width:min(720px,94vw);height:min(560px,62vh);min-height:390px;margin:auto;overflow:hidden;border:5px solid #222;border-radius:18px;background:#9bd17c}
 #pauseBtn{position:absolute;top:10px;right:10px;z-index:31;font-size:14px;padding:7px 12px;border-radius:9px;background:#6c5ce7}#resetBtn{position:absolute;top:55px;right:10px;z-index:30;font-size:14px;padding:7px 12px;border-radius:9px}#road{position:absolute;left:10%;right:10%;top:0;bottom:0;background:#d7d7d7}
 .line{position:absolute;top:0;bottom:0;width:5px;background:#aaa}.l1{left:30%}.l2{left:50%}.l3{left:70%}
 .laser{position:absolute;height:16px;background:#e22;border:3px solid #900;border-radius:10px;box-shadow:0 0 14px #f33}
@@ -17,7 +17,7 @@ h1{margin:12px 0 5px}.info{font-weight:800;margin-bottom:8px}
 .body{width:26px;height:30px;margin:auto;background:#4285f4;border:3px solid #222;border-radius:7px}
 .leg{position:absolute;bottom:0;width:9px;height:20px;background:#222;border-radius:5px}.leg1{left:8px}.leg2{right:8px}
 #message{position:absolute;inset:0;background:#0008;display:flex;align-items:center;justify-content:center;z-index:20}
-.card{background:#fff;padding:25px;border-radius:20px;width:300px}.playerPick{display:grid;grid-template-columns:1fr 1fr;gap:10px}.playerPick button{width:100%}.modeScreen{display:none}.modeBtns{display:grid;gap:9px}.modeBtns button{width:100%}.chooseRow{display:flex;gap:8px;align-items:center;justify-content:center}.chooseRow input{width:70px;font-size:20px;font-weight:bold;text-align:center;padding:10px;border:3px solid #222;border-radius:10px}.chooseRow button{flex:1;background:#7b2cbf}
+.card{background:#fff;padding:18px;border-radius:20px;width:min(300px,82vw);max-height:88%;overflow-y:auto}.playerPick{display:grid;grid-template-columns:1fr 1fr;gap:10px}.playerPick button{width:100%}.modeScreen{display:none}.modeBtns{display:grid;gap:6px}.modeBtns button{width:100%}.chooseRow{display:grid;grid-template-columns:70px 1fr;gap:6px;align-items:center;justify-content:center}.chooseRow input{width:70px;font-size:20px;font-weight:bold;text-align:center;padding:10px;border:3px solid #222;border-radius:10px}.chooseRow button{flex:1;background:#7b2cbf}
 button{font-size:20px;font-weight:bold;padding:12px 20px;border:0;border-radius:12px;background:#4285f4;color:#fff;cursor:pointer}
 .controls{margin:12px auto;display:grid;grid-template-columns:1fr 1fr;gap:12px;width:min(720px,94vw)}
 .touchPlayer{background:#fff;border:3px solid #222;border-radius:14px;padding:8px}.touchPlayer strong{display:block;margin-bottom:6px}.touchButtons{display:flex;gap:8px}.touchButtons button{margin:0;flex:1;min-height:58px;font-size:24px;touch-action:manipulation;-webkit-user-select:none;user-select:none}.p2btn{background:#f28c28}
