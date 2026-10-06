@@ -22,6 +22,22 @@ button{font-size:20px;font-weight:bold;padding:12px 20px;border:0;border-radius:
 .controls{margin:12px auto;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;width:min(720px,94vw);box-sizing:border-box}.touchPlayer{min-width:0}
 .touchPlayer{background:#fff;border:3px solid #222;border-radius:14px;padding:8px}.touchPlayer strong{display:block;margin-bottom:6px}.touchButtons{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}.touchButtons button{margin:0;flex:1;min-height:58px;font-size:24px;touch-action:manipulation;-webkit-user-select:none;user-select:none}.p2btn{background:#f28c28}
 @media (max-height:600px){#message{padding:5px 0}.card{padding:9px}.modeScreen p{font-size:11px;line-height:1.15}.modeScreen button{font-size:14px;padding:7px 5px}#backPlayers{margin-top:6px!important}.modeBtns{gap:3px}}
+
+#message .card{width:min(340px,88vw)!important;padding:12px!important;max-height:calc(100% - 16px)!important;overflow-y:auto!important;margin:8px auto!important}
+.modeBtns{display:flex!important;flex-direction:column!important;gap:7px!important}
+.modeBtns>button{display:block!important;width:100%!important;box-sizing:border-box!important;position:static!important;margin:0!important}
+.heartPicker{display:grid!important;grid-template-columns:52px 1fr 52px!important;gap:7px!important;width:100%!important;box-sizing:border-box!important}
+.heartPicker button,.heartPicker input{width:100%!important;min-width:0!important;box-sizing:border-box!important;margin:0!important;padding:9px 4px!important}
+.chooseBtn{display:block!important;width:100%!important;box-sizing:border-box!important;margin:0!important;background:#7b2cbf!important}
+#backPlayers{display:block!important;width:100%!important;box-sizing:border-box!important;margin:8px 0 0!important;position:static!important}
+@media (max-height:600px){
+ #message .card{padding:7px!important;margin:4px auto!important}
+ .modeBtns{gap:4px!important}
+ .modeBtns>button,.chooseBtn,#backPlayers{padding:6px!important;font-size:13px!important}
+ .heartPicker button,.heartPicker input{padding:6px 3px!important;font-size:13px!important}
+ .modeScreen p{font-size:10px!important;line-height:1.1!important;margin:2px 0 5px!important}
+ .modeScreen h2{font-size:18px!important;margin:2px!important}
+}
 </style>
 </head>
 <body>
@@ -40,7 +56,7 @@ button{font-size:20px;font-weight:bold;padding:12px 20px;border:0;border-radius:
 <div id="modeScreen" class="modeScreen">
 <h2>🏁 Laser Run!</h2>
 <p><b>Choose your mode!</b><br>😊 Easy = 5 ❤️ • 🎮 Normal = 3 ❤️ • 🔥 Hard = 1 ❤️<br>❤️ Choose = pick 1–10 hearts.<br><br>📱 Use the big left/right buttons below the game.<br>🐌 slows everything down.<br><br>⌨️ Keyboard: P1 = A/D, P2 = ←/→, Shift = Pause.</p>
-<div class="modeBtns"><button id="easy" style="background:#2e9d50">😊 EASY • 5 ❤️</button><button id="start">🎮 NORMAL • 3 ❤️</button><button id="hard" style="background:#b00020">🔥 HARD • 1 ❤️</button><div class="chooseRow" style="grid-template-columns:48px 58px 48px 1fr"><button id="heartMinus" type="button" style="padding:10px 5px">−</button><input id="heartChoice" type="number" min="1" max="10" value="10" inputmode="numeric" aria-label="Choose hearts"><button id="heartPlus" type="button" style="padding:10px 5px">+</button><button id="choose">❤️ CHOOSE</button></div><small>Choose 1–10 hearts • maximum 10 ❤️</small></div>
+<div class="modeBtns"><button id="easy" style="background:#2e9d50">😊 EASY • 5 ❤️</button><button id="start">🎮 NORMAL • 3 ❤️</button><button id="hard" style="background:#b00020">🔥 HARD • 1 ❤️</button><div class="heartPicker"><button id="heartMinus" type="button">−</button><input id="heartChoice" type="number" min="1" max="10" value="10" inputmode="numeric" aria-label="Choose hearts"><button id="heartPlus" type="button">+</button></div><button id="choose" class="chooseBtn">❤️ CHOOSE</button><small>Choose 1–10 hearts • maximum 10 ❤️</small></div>
 <button id="backPlayers" style="margin-top:12px;background:#666;font-size:15px">← PLAYERS</button>
 </div></div><button id="pauseBtn">⏸ PAUSE</button><button id="resetBtn">RESET</button></div>
 <div class="controls" id="touchControls" style="display:none">
