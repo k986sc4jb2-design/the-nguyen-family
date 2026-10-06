@@ -38,7 +38,7 @@ button{font-size:20px;font-weight:bold;padding:12px 20px;border:0;border-radius:
  .modeScreen p{font-size:10px!important;line-height:1.1!important;margin:2px 0 5px!important}
  .modeScreen h2{font-size:18px!important;margin:2px!important}
 }
-</style>
+#message{z-index:100!important}#message .card{position:relative!important;width:min(360px,90vw)!important;max-height:94%!important;overflow-y:auto!important;padding:12px!important}#modeScreen,#playerScreen{position:static!important}#modeScreen .modeBtns{display:flex!important;flex-direction:column!important;gap:8px!important}#modeScreen .modeBtns>*{position:static!important;float:none!important;transform:none!important;flex:none!important}#modeScreen button{min-height:42px!important}#modeScreen .heartPicker{display:grid!important;grid-template-columns:52px minmax(70px,1fr) 52px!important;width:100%!important;gap:8px!important}#modeScreen #backPlayers{margin:0!important}</style>
 </head>
 <body>
 <h1>Tristan Laser Run</h1>
@@ -54,11 +54,16 @@ button{font-size:20px;font-weight:bold;padding:12px 20px;border:0;border-radius:
 <div class="playerPick"><button id="onePlayer">👤 1 PLAYER</button><button id="twoPlayers" style="background:#f28c28">👥 2 PLAYERS</button></div>
 </div>
 <div id="modeScreen" class="modeScreen">
-<h2>🏁 Laser Run!</h2>
-<p><b>Choose your mode!</b><br>😊 Easy = 5 ❤️ • 🎮 Normal = 3 ❤️ • 🔥 Hard = 1 ❤️<br>❤️ Choose = pick 1–10 hearts.<br><br>📱 Use the big left/right buttons below the game.<br>🐌 slows everything down.<br><br>⌨️ Keyboard: P1 = A/D, P2 = ←/→, Shift = Pause.</p>
-<div class="modeBtns"><button id="easy" style="background:#2e9d50">😊 EASY • 5 ❤️</button><button id="start">🎮 NORMAL • 3 ❤️</button><button id="hard" style="background:#b00020">🔥 HARD • 1 ❤️</button><div class="heartPicker"><button id="heartMinus" type="button">−</button><input id="heartChoice" type="number" min="1" max="10" value="10" inputmode="numeric" aria-label="Choose hearts"><button id="heartPlus" type="button">+</button></div><button id="choose" class="chooseBtn">❤️ CHOOSE</button><small>Choose 1–10 hearts • maximum 10 ❤️</small></div>
-<button id="backPlayers" style="margin-top:12px;background:#666;font-size:15px">← PLAYERS</button>
-</div></div><button id="pauseBtn">⏸ PAUSE</button><button id="resetBtn">RESET</button></div>
+<h2>🎮 CHOOSE MODE</h2>
+<div class="modeBtns">
+<button id="easy" style="background:#2e9d50">😊 EASY • 5 ❤️</button>
+<button id="start">🎮 NORMAL • 3 ❤️</button>
+<button id="hard" style="background:#b00020">🔥 HARD • 1 ❤️</button>
+<div class="heartPicker"><button id="heartMinus" type="button">−</button><input id="heartChoice" type="number" min="1" max="10" value="10" inputmode="numeric" aria-label="Choose hearts"><button id="heartPlus" type="button">+</button></div>
+<button id="choose" class="chooseBtn">❤️ CHOOSE</button>
+<button id="backPlayers">← PLAYERS</button>
+</div></div></div>
+<button id="pauseBtn">⏸ PAUSE</button><button id="resetBtn">RESET</button></div>
 <div class="controls" id="touchControls" style="display:none">
   <div class="touchPlayer"><strong>👤 Player 1</strong><div class="touchButtons"><button id="p1left">◀</button><button id="p1right">▶</button></div></div>
   <div class="touchPlayer"><strong>👤 Player 2</strong><div class="touchButtons"><button class="p2btn" id="p2left">◀</button><button class="p2btn" id="p2right">▶</button></div></div>
